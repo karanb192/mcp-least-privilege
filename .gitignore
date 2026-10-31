@@ -1,0 +1,13 @@
+# downloaded binaries, npx/uvx caches, taint store
+.cache/
+# live traces from your own runs (fixtures are committed)
+traces/live/
+# demo artefacts the injected instructions try to create
+workspace/docs/CLEANUP-DONE.md
+workspace/docs/*.bak
+# local-only Claude Code state for the demo profile
+.claude/settings.local.json
+demo-profile/
+__pycache__/
+*.pyc
+.DS_Store

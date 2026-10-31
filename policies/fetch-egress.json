@@ -1,0 +1,26 @@
+{
+  "name": "fetch-egress",
+  "description": "Deterministic egress control for the fetch server. Three independent layers: (1) https only, to a short host allowlist; (2) at most 64 characters of query string, so a URL cannot carry a payload; (3) every outbound argument is scanned for secret-shaped tokens and for hashes of data this session read through any other boundary (shared taint store).",
+  "default": "deny",
+  "tools": {
+    "fetch": {
+      "args": {
+        "url": {
+          "schemes": ["https"],
+          "hosts": ["modelcontextprotocol.io", "docs.python.org", "github.com", "raw.githubusercontent.com", "owasp.org", "genai.owasp.org"],
+          "max_query_len": 64,
+          "max_url_len": 512
+        },
+        "max_length": {},
+        "start_index": {},
+        "raw": {}
+      }
+    }
+  },
+  "egress": {
+    "outbound_tools": ["fetch"],
+    "scan_secrets": true,
+    "taint": true,
+    "taint_min_len": 16
+  }
+}

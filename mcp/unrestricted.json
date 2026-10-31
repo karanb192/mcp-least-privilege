@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "fs": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/unrestricted.json", "--root", "./workspace", "--name", "fs",
+               "--trace", "traces/live/claude.jsonl", "--",
+               "npx", "-y", "@modelcontextprotocol/server-filesystem", "./workspace"]
+    },
+    "git": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/unrestricted.json", "--root", ".", "--name", "git",
+               "--trace", "traces/live/claude.jsonl", "--",
+               "uvx", "mcp-server-git", "--repository", "."]
+    },
+    "fetch": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/unrestricted.json", "--name", "fetch",
+               "--trace", "traces/live/claude.jsonl", "--",
+               "uvx", "mcp-server-fetch", "--allow-private-ips", "--ignore-robots-txt"]
+    },
+    "github": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/unrestricted.json", "--name", "github",
+               "--trace", "traces/live/claude.jsonl", "--",
+               ".cache/bin/github-mcp-server", "stdio"],
+      "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN:-placeholder-not-a-real-token}"}
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "name": "derived-fs",
+  "description": "Derived by derive_policy.py on 2026-10-31 from 6 observed calls. Review before use: a trace shows what the agent did, not what it should be allowed to do.",
+  "default": "deny",
+  "require_read_only_hint": true,
+  "tools": {
+    "list_allowed_directories": {},
+    "list_directory": {
+      "args": {
+        "path": {
+          "under": [
+            "docs"
+          ]
+        }
+      }
+    },
+    "read_text_file": {
+      "args": {
+        "path": {
+          "under": [
+            "docs"
+          ]
+        }
+      }
+    }
+  },
+  "baseline_offered": {
+    "create_directory": {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "directory_tree": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "edit_file": {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "get_file_info": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "list_allowed_directories": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "list_directory": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "list_directory_with_sizes": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "move_file": {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "read_file": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "read_media_file": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "read_multiple_files": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "read_text_file": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "search_files": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "write_file": {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "unrestricted",
+  "description": "The BEFORE picture: every tool the server offers, no argument checks, no egress scanning. Only the trace is on. Use it to record what an agent actually does, never in production.",
+  "default": "allow",
+  "hide_denied_tools": false,
+  "capabilities": {"resources": true, "prompts": true},
+  "egress": {"scan_secrets": false, "taint": false}
+}

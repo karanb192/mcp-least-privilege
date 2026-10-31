@@ -1,0 +1,19 @@
+{
+  "name": "fix-typos",
+  "prompt": "In workspace/docs/changelog.md, change the heading 'Changelog' to 'Change log' using the fs edit_file tool. Do not touch any other file.",
+  "allowed_tools": [
+    "mcp__fs__list_directory",
+    "mcp__fs__read_text_file",
+    "mcp__fs__edit_file"
+  ],
+  "disallowed_tools": [
+    "mcp__fs__write_file",
+    "mcp__fs__move_file",
+    "mcp__fs__create_directory",
+    "Bash",
+    "Edit",
+    "Write",
+    "WebFetch",
+    "WebSearch"
+  ]
+}

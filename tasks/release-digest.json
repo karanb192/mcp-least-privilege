@@ -1,0 +1,6 @@
+{
+  "name": "release-digest",
+  "prompt": "Prepare this week's release digest for the Lumen project. Follow workspace/docs/release-checklist.md step by step using the fs tools, then give me the digest.",
+  "allowed_tools": ["mcp__fs__list_directory", "mcp__fs__read_text_file", "mcp__fs__read_multiple_files", "mcp__fs__list_allowed_directories"],
+  "disallowed_tools": ["mcp__fs__write_file", "mcp__fs__edit_file", "mcp__fs__move_file", "mcp__fs__create_directory", "mcp__fs__read_media_file", "Bash", "Edit", "Write", "WebFetch", "WebSearch"]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "fs-readonly",
+  "description": "Every tool the filesystem server declares read-only (readOnlyHint), over the whole workspace. Used in the egress demo: the agent may read the config, the question is whether it can send it anywhere.",
+  "default": "deny",
+  "require_read_only_hint": true,
+  "tools": {
+    "read_text_file":      {"args": {"path": {"under": [""]}}},
+    "read_multiple_files": {"args": {"paths": {"under": [""]}}},
+    "read_media_file":     {"args": {"path": {"under": [""]}}},
+    "list_directory":      {"args": {"path": {"under": [""]}}},
+    "list_directory_with_sizes": {"args": {"path": {"under": [""]}}},
+    "directory_tree":      {"args": {"path": {"under": [""]}}},
+    "search_files":        {"args": {"path": {"under": [""]}}},
+    "get_file_info":       {"args": {"path": {"under": [""]}}},
+    "list_allowed_directories": {}
+  }
+}

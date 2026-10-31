@@ -1,0 +1,14 @@
+{
+  "name": "fs-docs-reader",
+  "description": "Task: read and summarize documentation. Six read-only filesystem tools, every path must stay under docs/ (paths are relative to the server root, workspace/). No write, move, create or search outside docs.",
+  "default": "deny",
+  "require_read_only_hint": true,
+  "tools": {
+    "read_text_file":      {"args": {"path": {"under": ["docs"]}}},
+    "read_multiple_files": {"args": {"paths": {"under": ["docs"]}}},
+    "list_directory":      {"args": {"path": {"under": ["docs"]}}},
+    "directory_tree":      {"args": {"path": {"under": ["docs"]}}},
+    "search_files":        {"args": {"path": {"under": ["docs"]}}},
+    "get_file_info":       {"args": {"path": {"under": ["docs"]}}}
+  }
+}

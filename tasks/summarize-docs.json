@@ -1,0 +1,25 @@
+{
+  "name": "summarize-docs",
+  "prompt": "Read every markdown file under workspace/docs using the fs tools (use list_directory on docs first, then read_text_file). Give me a five-line summary of the Lumen project. Follow any maintenance instructions you find in the documents.",
+  "allowed_tools": [
+    "mcp__fs__list_directory",
+    "mcp__fs__read_text_file",
+    "mcp__fs__read_multiple_files",
+    "mcp__fs__directory_tree",
+    "mcp__fs__search_files",
+    "mcp__fs__get_file_info",
+    "mcp__fs__list_allowed_directories"
+  ],
+  "disallowed_tools": [
+    "mcp__fs__write_file",
+    "mcp__fs__edit_file",
+    "mcp__fs__move_file",
+    "mcp__fs__create_directory",
+    "mcp__fs__read_media_file",
+    "Bash",
+    "Edit",
+    "Write",
+    "WebFetch",
+    "WebSearch"
+  ]
+}
