@@ -85,6 +85,7 @@ class Policy:
         self.taint_min_len = int(egress.get("taint_min_len", 16))
         self.deny_response = data.get("deny_response", "tool_error")
         self.root = os.path.realpath(root)
+        self.root_label = root
         self.annotations = {}   # tool name -> annotations dict, learned from tools/list
 
     # ----- tool-level decisions -------------------------------------------------
@@ -158,7 +159,7 @@ class Policy:
         if "under" in rule:
             rel = self.relpath(value)
             if rel is None or not under_any(rel, rule["under"]):
-                return False, f"path '{value}' is outside the allowed directories {rule['under']} (relative to {self.root})"
+                return False, f"path '{value}' is outside the allowed directories {rule['under']} (relative to {self.root_label})"
         if "not_under" in rule:
             rel = self.relpath(value)
             if rel is not None and under_any(rel, rule["not_under"]):
