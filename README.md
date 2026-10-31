@@ -1,8 +1,8 @@
 # mcp-least-privilege
 
 Least privilege for AI agents and MCP servers: five patterns, each one runnable
-on a laptop against the public reference MCP servers (filesystem, git, fetch,
-github), each one reproducible without an LLM in the loop.
+on a laptop against three MCP reference servers (filesystem, git, fetch) and
+GitHub's official MCP server, each one reproducible without an LLM in the loop.
 
 Companion repo for the talk **"Prompt Injection Is an Access Control Problem"**
 (OWASP AppSec Days India 2026). Everything here is open source and
@@ -264,7 +264,7 @@ Sources: [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/),
 [Securing Agentic Applications Guide](https://genai.owasp.org/resource/securing-agentic-applications-guide/)
 (least privilege, allow-lists for URLs and commands, human approval for
 high-risk operations, egress limits), and the MCP specification's
-[security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices)
+[security best practices](https://modelcontextprotocol.io/specification/2026-07-28/basic/security_best_practices)
 (scope minimization, least privilege for local servers). The MCP Top 10 list is
 a beta (v0.1) with 2025 identifiers; MCP06 is titled differently on the
 project page and in the repository, so this table does not cite it.
