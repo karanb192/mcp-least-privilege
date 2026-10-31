@@ -114,7 +114,7 @@ Claude Code; the lesson is the same: the grant follows the task, not the agent.
 
 `boundary/boundary.py` is a one-file stdio proxy. Claude Code starts it; it
 starts the real server. It filters `tools/list` (14 filesystem tools become 6,
-12 git tools become 7, 46 GitHub tools become 11), drops the `resources` and
+12 git tools become 7, 46 GitHub tools become 10), drops the `resources` and
 `prompts` capabilities, and checks every `tools/call` against the policy:
 tool allowlist, path prefixes resolved with `realpath` (so `docs/../config`
 and symlinks out of `docs/` are refused), URL hosts, argument length, regexes.
