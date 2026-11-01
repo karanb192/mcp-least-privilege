@@ -1,20 +1,24 @@
 {
   "name": "github-readonly",
-  "description": "Read-only GitHub, scoped to named owners. Combine with the server's own --read-only and --toolsets flags: the boundary is the second lock, not the only one. The owner constraint keeps a token that can see many organisations from being used on all of them.",
+  "description": "Read-only GitHub, scoped to named owners. Combine with the server's own --read-only and --toolsets flags: the boundary is the second lock, not the only one. The owner constraint keeps a token that can see many organisations from being used on all of them. Search tools are left out: a search query can name any owner, so the owner constraint cannot hold for them.",
   "default": "deny",
   "require_read_only_hint": true,
   "tools": {
     "get_me": {},
-    "get_file_contents":   {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "get_commit":          {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "list_commits":        {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "list_branches":       {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "list_issues":         {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "issue_read":          {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "list_pull_requests":  {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "pull_request_read":   {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
-    "search_code":         {"args": {"query": {"max_len": 200}}},
-    "search_repositories": {"args": {"query": {"max_len": 200}}}
+    "get_file_contents": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "get_commit": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "list_commits": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "list_branches": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "list_issues": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "issue_read": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "list_pull_requests": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}},
+    "pull_request_read": {"args": {"owner": {"allow_regex": ["^(karanb192|modelcontextprotocol|github)$"]}}}
   },
-  "egress": {"outbound_tools": ["search_code", "search_repositories", "search_issues"], "scan_secrets": true, "taint": true}
+  "egress": {
+    "outbound_tools": [
+      "search_issues"
+    ],
+    "scan_secrets": true,
+    "taint": true
+  }
 }

@@ -19,6 +19,7 @@ FS=(npx -y @modelcontextprotocol/server-filesystem ./workspace)
 GIT=(uvx mcp-server-git --repository .)
 FETCH=(uvx mcp-server-fetch --allow-private-ips --ignore-robots-txt)
 GH=(./.cache/bin/github-mcp-server stdio)
+GH_RO=("${GH[@]}" --read-only --toolsets repos,issues,pull_requests)
 export GITHUB_PERSONAL_ACCESS_TOKEN="${GITHUB_PERSONAL_ACCESS_TOKEN:-placeholder-not-a-real-token}"
 bold() { printf '\n\033[1m%s\033[0m\n' "$*"; }
 say()  { printf '\033[2m%s\033[0m\n' "$*"; }
@@ -90,9 +91,10 @@ demo_2() {
   run "${PROBE[@]}" list -- "${B[@]}" --policy policies/git-readonly.json --root . -- "${GIT[@]}"
   pause
   if [[ -x .cache/bin/github-mcp-server ]]; then
-    bold "github: 46 offered by default (no token needed to list), 11 behind policies/github-readonly.json"
+    bold "github: 46 offered by default (no token needed to list), 22 with its own --read-only --toolsets flags, 8 behind policies/github-readonly.json"
     run "${PROBE[@]}" list -- "${GH[@]}" | head -3
-    run "${PROBE[@]}" list -- "${B[@]}" --policy policies/github-readonly.json -- "${GH[@]}"
+    run "${PROBE[@]}" list -- "${GH_RO[@]}" | head -3
+    run "${PROBE[@]}" list -- "${B[@]}" --policy policies/github-readonly.json -- "${GH_RO[@]}"
     pause
   fi
   bold "A call to a hidden tool, or an allowed tool with a bad argument, is refused with the reason"
@@ -129,14 +131,14 @@ demo_3() {
   if [[ $1 == live ]]; then
     pause
     TASK=${TASK:-tasks/readiness-check.json}
-    say "Task: $TASK (TASK=tasks/predeploy-check.json for the blunt variant). Tier gate off: only the boundary policy changes."
+    say "Task: $TASK (TASK=tasks/predeploy-check.json for the blunt variant). Same grant and tier gate off in both runs: only the boundary policy changes."
     rm -f .cache/taint.txt
     bold "BEFORE: unrestricted boundary (mcp/demo3-unrestricted.json). Watch the sink terminal."
     claude_env python3 tools/run_task.py "$TASK" --grant agent --mcp-config mcp/demo3-unrestricted.json --no-gate
     pause
     bold "AFTER: fetch-egress + fs-readonly with a shared taint store (mcp/demo3-egress.json)"
     rm -f .cache/taint.txt
-    claude_env python3 tools/run_task.py "$TASK" --grant task --mcp-config mcp/demo3-egress.json --no-gate
+    claude_env python3 tools/run_task.py "$TASK" --grant agent --mcp-config mcp/demo3-egress.json --no-gate
     bold "What the boundary decided (traces/live/claude.jsonl):"
     grep -h '"event": "call"' traces/live/claude.jsonl | tail -6 | python3 -c 'import sys,json; [print(" ", e["server"], e["tool"], e["decision"], e.get("paths") or e.get("hosts"), (e.get("reason") or "")[:100]) for e in map(json.loads, sys.stdin)]'
   fi

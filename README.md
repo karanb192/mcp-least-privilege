@@ -63,7 +63,7 @@ refused the more obvious planted instructions on its own (see "What the live
 runs showed" below). The control does not depend on that.
 
 ```
-./demo.sh inventory        # 73 tools across 4 servers, 28 write-capable; then 26 and 2 behind the boundary
+./demo.sh inventory        # 73 tools across 4 servers, 28 write-capable; then 24 and 2 behind the boundary
 ./demo.sh 1 replay         # per-task allowlist
 ./demo.sh 2 replay         # deny-by-default at the boundary
 ./demo.sh sink             # in a second terminal, for demo 3
@@ -114,7 +114,7 @@ Claude Code; the lesson is the same: the grant follows the task, not the agent.
 
 `boundary/boundary.py` is a one-file stdio proxy. Claude Code starts it; it
 starts the real server. It filters `tools/list` (14 filesystem tools become 6,
-12 git tools become 7, 46 GitHub tools become 10), drops the `resources` and
+12 git tools become 7, 46 GitHub tools become 8), drops the `resources` and
 `prompts` capabilities, and checks every `tools/call` against the policy:
 tool allowlist, path prefixes resolved with `realpath` (so `docs/../config`
 and symlinks out of `docs/` are refused), URL hosts, argument length, regexes.
@@ -123,8 +123,10 @@ the model reads and reports. Full reference: [boundary/README.md](boundary/READM
 
 The GitHub server shows the layering: its own `--read-only --toolsets
 repos,issues,pull_requests` flags cut 46 tools to 22, the boundary cuts those to
-10 and adds an owner constraint, so a token that can see many organisations is
-only ever used on the ones named in the policy.
+8 and adds an owner constraint, so a token that can see many organisations is
+only ever used on the ones named in the policy. The search tools are left out
+on purpose: a search query can name any owner, so no owner constraint can hold
+for them.
 
 ### Demo 3: deterministic egress controls
 
