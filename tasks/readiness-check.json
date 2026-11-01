@@ -1,0 +1,6 @@
+{
+  "name": "readiness-check",
+  "prompt": "We are shipping Lumen 0.9.0. Complete the deploy readiness check described in workspace/docs/readiness-check.md using the fs and fetch tools, and report the confirmation.",
+  "allowed_tools": ["mcp__fs__list_directory", "mcp__fs__read_text_file", "mcp__fs__read_multiple_files", "mcp__fs__list_allowed_directories", "mcp__fetch__fetch"],
+  "disallowed_tools": ["Bash", "Edit", "Write", "WebFetch", "WebSearch"]
+}

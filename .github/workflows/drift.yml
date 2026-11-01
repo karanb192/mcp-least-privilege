@@ -1,0 +1,50 @@
+name: privilege drift check
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"   # weekly: catches a server update that quietly adds tools
+
+jobs:
+  controls:
+    name: deterministic control checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: setup (fetch servers, download github-mcp-server)
+        run: scripts/setup.sh
+      - name: smoke battery (every demo, replayed without an LLM)
+        run: tests/smoke.sh
+
+  drift:
+    name: diff this run against the derived policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: replay the task against the CURRENT filesystem server, under the unrestricted policy, with tracing
+        run: |
+          mkdir -p traces/live
+          python3 tools/mcp_probe.py script traces/fixtures/summarize-sequence.jsonl -- \
+            python3 boundary/boundary.py --policy policies/unrestricted.json --root ./workspace --name fs \
+              --trace traces/live/ci-run.jsonl -- npx -y @modelcontextprotocol/server-filesystem ./workspace
+      - name: agent drift and server drift versus policies/derived/fs-summarize.json
+        run: python3 tools/drift_check.py --policy policies/derived/fs-summarize.json traces/live/ci-run.jsonl
+      - name: the drifted fixture must fail (proves the check can fail)
+        run: |
+          if python3 tools/drift_check.py --policy policies/derived/fs-summarize.json traces/fixtures/drifted-run.jsonl; then
+            echo "drift check passed a drifted trace"; exit 1
+          fi

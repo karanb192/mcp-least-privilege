@@ -1,0 +1,21 @@
+{
+  "name": "fetch-egress-hostonly",
+  "description": "Teaching variant: the host allowlist deliberately includes the local sink so the second and third layers (query cap, secret and taint scan) can be shown doing the blocking on their own. Not for real use.",
+  "default": "deny",
+  "tools": {
+    "fetch": {
+      "args": {
+        "url": {
+          "schemes": ["http", "https"],
+          "hosts": ["127.0.0.1", "docs.python.org"],
+          "max_query_len": 4096,
+          "max_url_len": 8192
+        },
+        "max_length": {},
+        "start_index": {},
+        "raw": {}
+      }
+    }
+  },
+  "egress": {"outbound_tools": ["fetch"], "scan_secrets": true, "taint": true, "taint_min_len": 16}
+}

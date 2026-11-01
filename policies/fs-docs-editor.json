@@ -1,0 +1,15 @@
+{
+  "name": "fs-docs-editor",
+  "description": "Task: fix typos in documentation. The reader set plus edit_file and write_file, still confined to docs/. No move_file, no create_directory, nothing under config/.",
+  "default": "deny",
+  "tools": {
+    "read_text_file":      {"args": {"path": {"under": ["docs"]}}},
+    "read_multiple_files": {"args": {"paths": {"under": ["docs"]}}},
+    "list_directory":      {"args": {"path": {"under": ["docs"]}}},
+    "directory_tree":      {"args": {"path": {"under": ["docs"]}}},
+    "search_files":        {"args": {"path": {"under": ["docs"]}}},
+    "get_file_info":       {"args": {"path": {"under": ["docs"]}}},
+    "edit_file":           {"args": {"path": {"under": ["docs"], "deny_regex": ["\\.env$"]}}},
+    "write_file":          {"args": {"path": {"under": ["docs"], "deny_regex": ["\\.env$"]}, "content": {"max_len": 20000}}}
+  }
+}

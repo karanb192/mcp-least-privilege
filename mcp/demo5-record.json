@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "fs": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/unrestricted.json", "--root", "./workspace", "--name", "fs",
+               "--trace", "traces/live/record.jsonl", "--",
+               "npx", "-y", "@modelcontextprotocol/server-filesystem", "./workspace"]
+    }
+  }
+}

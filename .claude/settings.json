@@ -1,0 +1,17 @@
+{
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/hooks/tier_gate.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

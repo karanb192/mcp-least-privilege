@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "fs": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/fs-readonly.json", "--root", "./workspace", "--name", "fs",
+               "--trace", "traces/live/claude.jsonl", "--taint-store", ".cache/taint.txt", "--",
+               "npx", "-y", "@modelcontextprotocol/server-filesystem", "./workspace"]
+    },
+    "fetch": {
+      "command": "python3",
+      "args": ["boundary/boundary.py", "--policy", "policies/fetch-egress.json", "--name", "fetch",
+               "--trace", "traces/live/claude.jsonl", "--taint-store", ".cache/taint.txt", "--",
+               "uvx", "mcp-server-fetch", "--allow-private-ips", "--ignore-robots-txt"]
+    }
+  }
+}

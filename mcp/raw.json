@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "fs":     {"command": "npx", "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"]},
+    "git":    {"command": "uvx", "args": ["mcp-server-git", "--repository", "."]},
+    "fetch":  {"command": "uvx", "args": ["mcp-server-fetch", "--allow-private-ips", "--ignore-robots-txt"]},
+    "github": {"command": ".cache/bin/github-mcp-server", "args": ["stdio"],
+               "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN:-placeholder-not-a-real-token}"}}
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "git-readonly",
+  "description": "Inspect history and diffs, never change the repository: no git_add, git_commit, git_reset, git_checkout, git_create_branch. The repo_path argument must stay inside this checkout.",
+  "default": "deny",
+  "require_read_only_hint": true,
+  "tools": {
+    "git_status":        {"args": {"repo_path": {"under": [""]}}},
+    "git_log":           {"args": {"repo_path": {"under": [""]}}},
+    "git_diff":          {"args": {"repo_path": {"under": [""]}}},
+    "git_diff_staged":   {"args": {"repo_path": {"under": [""]}}},
+    "git_diff_unstaged": {"args": {"repo_path": {"under": [""]}}},
+    "git_show":          {"args": {"repo_path": {"under": [""]}}},
+    "git_branch":        {"args": {"repo_path": {"under": [""]}}}
+  }
+}
