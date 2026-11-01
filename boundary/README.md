@@ -94,7 +94,7 @@ arguments such as `paths` are checked element by element):
 | `not_under: [dirs]` | path must not be inside these |
 | `hosts: [names]` | URL hostname must match exactly or by `*.suffix` |
 | `schemes: [..]` | URL scheme allowlist (default `https` when any URL rule is present) |
-| `max_query_len: n` | length of query plus fragment, so a URL cannot carry a payload |
+| `max_query_len: n` | length of query plus fragment, so a URL cannot carry a long payload there (the path is not covered; the host allowlist is the first line) |
 | `max_url_len: n` | default 2048 |
 | `max_len: n` | maximum string length (for `content`, `query`, ...) |
 | `enum: [..]` | value must be one of these |
