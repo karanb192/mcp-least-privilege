@@ -135,7 +135,9 @@ anything it reads can leave. Three independent layers in
 `policies/fetch-egress.json`:
 
 1. `hosts`: a short allowlist, https only. The sink is not on it.
-2. `max_query_len: 64`: even an allowed host cannot carry a payload in the URL.
+2. `max_query_len: 64`: even an allowed host cannot carry a long payload in the
+   query string. The URL path is not covered, which is why the host allowlist
+   comes first.
 3. Secret scan plus taint: every outbound argument is checked against
    secret-shaped patterns and against SHA-256 hashes of tokens this session
    read earlier. The filesystem boundary learns, the fetch boundary checks,

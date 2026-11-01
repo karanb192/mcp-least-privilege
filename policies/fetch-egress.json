@@ -1,6 +1,6 @@
 {
   "name": "fetch-egress",
-  "description": "Deterministic egress control for the fetch server. Three independent layers: (1) https only, to a short host allowlist; (2) at most 64 characters of query string, so a URL cannot carry a payload; (3) every outbound argument is scanned for secret-shaped tokens and for hashes of data this session read through any other boundary (shared taint store).",
+  "description": "Deterministic egress control for the fetch server. Three independent layers: (1) https only, to a short host allowlist; (2) at most 64 characters of query string, so a URL cannot carry a long payload in its query (the path is not covered); (3) every outbound argument is scanned for secret-shaped tokens and for hashes of data this session read through any other boundary (shared taint store).",
   "default": "deny",
   "tools": {
     "fetch": {
