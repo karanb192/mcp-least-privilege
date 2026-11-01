@@ -108,7 +108,8 @@ if [[ -x .cache/bin/github-mcp-server ]]; then
   export GITHUB_PERSONAL_ACCESS_TOKEN="${GITHUB_PERSONAL_ACCESS_TOKEN:-placeholder-not-a-real-token}"
   H=("${BOUNDARY[@]}" --policy policies/github-readonly.json --name github -- "${GH_SERVER[@]}")
   expect "server default offers 46 tools"          contains:"46 tools exposed" $PROBE list -- "${GH_SERVER[@]}"
-  expect "policy exposes 11"                       contains:"11 tools exposed" $PROBE list -- "${H[@]}"
+  expect "policy exposes 9 (no search tools)"      contains:"9 tools exposed" $PROBE list -- "${H[@]}"
+  expect "search_code denied (owner not enforceable)" deny $PROBE call search_code '{"query":"org:someone-else secret"}' -- "${H[@]}"
   expect "push_files denied"                       deny $PROBE call push_files '{"owner":"karanb192","repo":"x","branch":"main","message":"m","files":[]}' -- "${H[@]}"
   expect "create_or_update_file denied"            deny $PROBE call create_or_update_file '{"owner":"karanb192","repo":"x","path":"a","content":"x","message":"m","branch":"main"}' -- "${H[@]}"
   expect "read on a non-allowlisted owner denied"  deny $PROBE call get_file_contents '{"owner":"someone-else","repo":"x","path":"README.md"}' -- "${H[@]}"
